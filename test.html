@@ -8,7 +8,12 @@
 		body { height: 100%; margin: 0; padding: 0; }
 	</style>
 	<!-- Access GM -->
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+	<script src="env.js"></script>
+	<script>
+		let script = document.createElement('script');
+		script.src = "https://maps.googleapis.com/maps/api/js?key="+env.KEY;
+		document.getElementsByTagName('script')[0].parentNode.appendChild(script);
+	</script>
 </head>
 <body>
 

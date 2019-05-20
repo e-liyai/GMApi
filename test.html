@@ -30,10 +30,45 @@
 			env_script.parentNode.insertBefore(script, env_script.nextSibling);
 		}
 
+		function drawMarkers(map) {
+			const afs = 'https://www.africasokoni.co.ke/media/logo/stores/1/logos.png'
+			const client = 'https://cdn4.iconfinder.com/data/icons/basic-user-interface-2/512/User_Interface-10-512.png'
+
+			const centerMarker = new google.maps.Marker({
+				icon: afs,
+				position: new google.maps.LatLng(52.345860, -3.051817),
+				map: map,
+				title: "Africasokoni HQ Office"
+			})
+
+			const clientMarker = new google.maps.Marker({
+				icon: client,
+				position: new google.maps.LatLng(52.343866, -3.0492420),
+				map: map,
+				title: "Client"
+			})
+		}
+
+		function drawPolyline(map) {
+			let pathCoordinates = [
+				new google.maps.LatLng(52.343808, -3.049318),
+				new google.maps.LatLng(52.343880, -3.049468),
+				new google.maps.LatLng(52.344064, -3.049146),
+				new google.maps.LatLng(52.344261, -3.049682),
+				new google.maps.LatLng(52.345126, -3.050551),
+				new google.maps.LatLng(52.345493, -3.051034),
+				new google.maps.LatLng(52.345663, -3.051388),
+				new google.maps.LatLng(52.345716, -3.051742),
+				new google.maps.LatLng(52.345801, -3.051796),
+				new google.maps.LatLng(52.345860, -3.051935),
+				new google.maps.LatLng(52.345945, -3.051904)
+			]
+		}
+
 		function initialize() {
 			let mapOptions = {
-				center: new google.maps.LatLng(52.427548, -3.515625),
-				zoom: 9,
+				center: new google.maps.LatLng(52.231164, -3.015747),
+				zoom: 10,
 				disableDefaultUI: true
 				// zoomControl: true,
 				// panControl: true,
@@ -43,9 +78,11 @@
 				// streetViewControl: true
 			};
 			let map = new google.maps.Map(document.getElementById("map"), mapOptions);
+			drawMarkers(map);
 		}
 
 		loadGoogleScript("https://maps.googleapis.com/maps/api/js?key="+env.KEY, function() {
+			// drawPolyline(mapData);
 			google.maps.event.addDomListener(window, "load", initialize);
 		});
 	</script>

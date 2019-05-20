@@ -9,6 +9,7 @@
 		#map { height: 100% }
 	</style>
 	<!-- Access GM -->
+	<script src="deliveryLocation.js" ></script>
 	<script src="env.js" id="env_script"></script>
 	<script>
 		function loadGoogleScript(url, callback) {
@@ -36,14 +37,14 @@
 
 			const centerMarker = new google.maps.Marker({
 				icon: afs,
-				position: new google.maps.LatLng(52.345860, -3.051817),
+				position: new google.maps.LatLng(-1.353942, 36.905616),
 				map: map,
 				title: "Africasokoni HQ Office"
 			})
 
 			const clientMarker = new google.maps.Marker({
 				icon: client,
-				position: new google.maps.LatLng(52.343866, -3.0492420),
+				position: new google.maps.LatLng(-1.308220, 36.899047),
 				map: map,
 				title: "Client"
 			})
@@ -75,10 +76,17 @@
 			pathToDestination.setMap(map);
 		}
 
+		function addGeoJSONDeliveryNetwork(map) {
+			map.data.addGeoJson(deliveryLoc);
+			map.data.setStyle({
+				strokeColor: 'green',
+			});
+		}
+
 		function initialize() {
 			let mapOptions = {
-				center: new google.maps.LatLng(52.231164, -3.015747),
-				zoom: 10,
+				center: new google.maps.LatLng(-1.353942, 36.905616),
+				zoom: 12,
 				disableDefaultUI: true
 				// zoomControl: true,
 				// panControl: true,
@@ -88,8 +96,9 @@
 				// streetViewControl: true
 			};
 			let map = new google.maps.Map(document.getElementById("map"), mapOptions);
-			drawMarkers(map);
-			drawPolyline(map)
+			// drawMarkers(map);
+			// drawPolyline(map);
+			addGeoJSONDeliveryNetwork(map);
 		}
 
 		loadGoogleScript("https://maps.googleapis.com/maps/api/js?key="+env.KEY, function() {

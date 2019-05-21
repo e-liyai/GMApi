@@ -84,10 +84,17 @@
 			});
 		}
 
+		function addInitialExtent(map, initialCenter, initialZoom) {
+			google.maps.event.addListener(map, 'rightclick', function() {
+				map.setCenter(initialCenter);
+				map.setZoom(initialZoom);
+			});
+		}
+
 		function initialize() {
 			let mapOptions = {
-				center: new google.maps.LatLng(-1.353942, 36.905616),
-				zoom: 12,
+				center: new google.maps.LatLng(env.CENTER_LAT, env.CENTER_LONG),
+				zoom: env.ZOOM_LEVEL,
 				disableDefaultUI: true
 				// zoomControl: true,
 				// panControl: true,
@@ -100,6 +107,7 @@
 			// drawMarkers(map);
 			// drawPolyline(map);
 			addGeoJSONDeliveryNetwork(map);
+			addInitialExtent(map, mapOptions.center, mapOptions.zoom);
 		}
 
 		loadGoogleScript("https://maps.googleapis.com/maps/api/js?key="+env.KEY, function() {

@@ -12,6 +12,9 @@
 	<script src="deliveryLocation.js" ></script>
 	<script src="env.js" id="env_script"></script>
 	<script>
+		let overallMap;
+		let geoCoder = new google.maps.Geocoder();
+
 		function loadGoogleScript(url, callback) {
 			let script = document.createElement('script');
 			if(script.readyState) {  // only required for IE <9

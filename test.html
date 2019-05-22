@@ -13,7 +13,8 @@
 	<script src="env.js" id="env_script"></script>
 	<script>
 		let overallMap;
-		let geoCoder = new google.maps.Geocoder();
+		const locations = ['Tassia Complex, Nairobi', 'TRM, Nairobi', 'International House, Nairobi', 'Kenya Railway Golf Club'];
+		let geolocation = []
 
 		function loadGoogleScript(url, callback) {
 			let script = document.createElement('script');
@@ -94,6 +95,24 @@
 			});
 		}
 
+
+		// test geoCoding https://developers.google.com/maps/documentation/javascript/examples/geocoding-simple
+
+		function geocodeAddress(addresses) {
+			let geoCoder = new google.maps.Geocoder();
+			addresses.forEach(function(address) {
+				geoCoder.geocode({ 'address': address }, function(results, status) {
+					console.log('address: ', address);
+					if (status == google.maps.GeocoderStatus.OK){
+						geolocation.push(results[0].geometry.location)
+					} else {
+						console.log('Geocode failed with the following error: ' + status + ' Also results '+ results);
+					}
+				});
+			});
+		}
+
+
 		function initialize() {
 			let mapOptions = {
 				center: new google.maps.LatLng(env.CENTER_LAT, env.CENTER_LONG),
@@ -111,7 +130,10 @@
 			// drawPolyline(map);
 			addGeoJSONDeliveryNetwork(map);
 			addInitialExtent(map, mapOptions.center, mapOptions.zoom);
+			geocodeAddress(locations);
+			console.log(geolocation);
 		}
+
 
 		loadGoogleScript("https://maps.googleapis.com/maps/api/js?key="+env.KEY, function() {
 			google.maps.event.addDomListener(window, "load", initialize);
